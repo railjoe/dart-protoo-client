@@ -75,7 +75,7 @@ class Transport extends TransportInterface {
           _logger.debug('event $event');
 
           final message = Message.parse(event);
-
+          _logger.debug('event1 $message');
           if (message == null) {
             this.safeEmit('event', event);
           } else {
