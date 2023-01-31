@@ -72,11 +72,15 @@ class Transport extends TransportInterface {
         _onOpen();
 
         ws.listen((event) {
+          _logger.debug('event $event');
+
           final message = Message.parse(event);
 
-          if (message == null) return;
-
-          this.safeEmit('message', message);
+          if (message == null) {
+            this.safeEmit('event', event);
+          } else {
+            this.safeEmit('message', message);
+          }
         }, onError: _onError);
       } else {
         _logger.warn(
