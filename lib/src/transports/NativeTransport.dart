@@ -43,7 +43,7 @@ class Transport extends TransportInterface {
   Future send(message) async {
     try {
       var mes = jsonEncode(message);
-      _logger.debug(">>>> $mes");
+      print(">>>> $mes");
       this._ws?.add(jsonEncode(message));
     } catch (error) {
       _logger.warn('send() failed:$error');
@@ -74,7 +74,7 @@ class Transport extends TransportInterface {
         _onOpen();
 
         ws.listen((event) {
-          _logger.debug('<<<< $event');
+          print('<<<< $event');
 
           final message = Message.parse(event);
           if (message == null) {
