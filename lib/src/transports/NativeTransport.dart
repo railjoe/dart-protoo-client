@@ -42,6 +42,7 @@ class Transport extends TransportInterface {
   @override
   Future send(message) async {
     try {
+      _logger.debug(jsonEncode(message));
       this._ws?.add(jsonEncode(message));
     } catch (error) {
       _logger.warn('send() failed:$error');
@@ -75,7 +76,7 @@ class Transport extends TransportInterface {
           _logger.debug('event $event');
 
           final message = Message.parse(event);
-          _logger.debug('event1 $message');
+          _logger.debug('message $message');
           if (message == null) {
             this.safeEmit('event', event);
           } else {
