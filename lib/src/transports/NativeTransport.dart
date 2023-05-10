@@ -42,7 +42,8 @@ class Transport extends TransportInterface {
   @override
   Future send(message) async {
     try {
-      _logger.debug(jsonEncode(message));
+      var mes = jsonEncode(message);
+      _logger.debug("WebScoketTest $mes");
       this._ws?.add(jsonEncode(message));
     } catch (error) {
       _logger.warn('send() failed:$error');
@@ -73,10 +74,9 @@ class Transport extends TransportInterface {
         _onOpen();
 
         ws.listen((event) {
-          _logger.debug('event $event');
+          _logger.debug('WebScoketTest $event');
 
           final message = Message.parse(event);
-          _logger.debug('message $message');
           if (message == null) {
             this.safeEmit('event', event);
           } else {
