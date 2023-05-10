@@ -4,6 +4,7 @@ import 'dart:io';
 import '../logger.dart';
 import '../message.dart';
 import 'TransportInterface.dart';
+import 'dart:developer';
 
 final _logger = Logger('Logger::NativeTransport');
 
@@ -43,7 +44,7 @@ class Transport extends TransportInterface {
   Future send(message) async {
     try {
       var mes = jsonEncode(message);
-      print(">>>> $mes");
+      log(">>>> $mes");
       this._ws?.add(jsonEncode(message));
     } catch (error) {
       _logger.warn('send() failed:$error');
@@ -74,7 +75,7 @@ class Transport extends TransportInterface {
         _onOpen();
 
         ws.listen((event) {
-          print('<<<< $event');
+          log('<<<< $event');
 
           final message = Message.parse(event);
           if (message == null) {
